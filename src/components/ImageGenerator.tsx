@@ -303,10 +303,19 @@ export default function ImageGenerator() {
         {/* History */}
         {history.length > 0 && (
           <Card className="glass-card p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-primary" />
-              Recent Generations
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold flex items-center gap-2">
+                <Clock className="w-5 h-5 text-primary" />
+                Recent Generations ({history.length})
+              </h2>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setHistory([])}
+              >
+                Clear History
+              </Button>
+            </div>
             <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
               {history.map((image, idx) => (
                 <button
