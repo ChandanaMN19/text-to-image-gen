@@ -19,6 +19,7 @@ const ART_STYLES = [
   { name: "Digital Art", value: "digital art, concept art, trending on artstation" },
   { name: "Oil Painting", value: "oil painting, classical art, fine art" },
   { name: "Watercolor", value: "watercolor painting, soft colors, artistic" },
+  { name: "Sketch", value: "pencil sketch, hand drawn, artistic sketch, line art" },
   { name: "Cyberpunk", value: "cyberpunk, neon lights, futuristic, sci-fi" },
   { name: "Fantasy", value: "fantasy art, magical, ethereal, mystical" },
   { name: "Minimalist", value: "minimalist, clean, simple, modern" },
