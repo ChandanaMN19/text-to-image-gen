@@ -56,11 +56,35 @@ export default function ImageGenerator() {
     
     try {
       const fullPrompt = `${prompt}, ${selectedStyle.value}`;
-      const encodedPrompt = encodeURIComponent(fullPrompt);
-      // Using flux model with enhance and seed for better quality and consistency
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${selectedRatio.width}&height=${selectedRatio.height}&nologo=true&model=flux&enhance=true&seed=${Math.floor(Math.random() * 1000000)}`;
       
-      // Show image immediately for faster perceived loading
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-image`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ prompt: fullPrompt }),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 429) {
+          toast.error("Rate limit exceeded. Please try again later.");
+        } else if (response.status === 402) {
+          toast.error("Payment required. Please add funds to continue.");
+        } else {
+          toast.error(error.error || "Failed to generate image");
+        }
+        setIsGenerating(false);
+        return;
+      }
+
+      const data = await response.json();
+      const imageUrl = data.imageUrl;
+      
       setCurrentImage(imageUrl);
       const newImage: GeneratedImage = {
         url: imageUrl,
@@ -68,14 +92,12 @@ export default function ImageGenerator() {
         timestamp: Date.now(),
         style: selectedStyle.name,
       };
-      setHistory([newImage, ...history.slice(0, 11)]); // Keep last 12 images
+      setHistory([newImage, ...history.slice(0, 11)]);
       
-      // Set a timeout to stop loading state
-      setTimeout(() => {
-        setIsGenerating(false);
-        toast.success("Image generated!");
-      }, 3000); // Increased time for higher quality generation
+      setIsGenerating(false);
+      toast.success("Image generated!");
     } catch (error) {
+      console.error("Error:", error);
       toast.error("An error occurred while generating the image");
       setIsGenerating(false);
     }
