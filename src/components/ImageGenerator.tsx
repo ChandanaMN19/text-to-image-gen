@@ -127,17 +127,31 @@ export default function ImageGenerator() {
     if (!currentImage) return;
     
     try {
-      if (navigator.share) {
-        await navigator.share({
-          title: "AI Generated Image",
-          text: `Check out this AI-generated image: ${prompt}`,
-          url: currentImage,
-        });
+      // Convert base64 to blob
+      const response = await fetch(currentImage);
+      const blob = await response.blob();
+      
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], `ai-generated-${Date.now()}.png`, { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "AI Generated Image",
+            text: `Check out this AI-generated image: ${prompt}`,
+            files: [file],
+          });
+          toast.success("Image shared!");
+        } else {
+          // Fallback to copying URL
+          await navigator.clipboard.writeText(currentImage);
+          toast.success("Image URL copied to clipboard!");
+        }
       } else {
         await navigator.clipboard.writeText(currentImage);
         toast.success("Image URL copied to clipboard!");
       }
     } catch (error) {
+      console.error("Share error:", error);
       toast.error("Failed to share image");
     }
   };
