@@ -1,5 +1,12 @@
 # AI Text-to-Image Generator (Java Edition) 🎨✨
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20(Railway)-00C7B7?style=for-the-badge&logo=railway&logoColor=white)](https://text-to-image-gen-production.up.railway.app/)
+[![Java](https://img.shields.io/badge/Java-21%2B-orange?style=for-the-badge&logo=openjdk)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen?style=for-the-badge&logo=springboot)](https://spring.io/projects/spring-boot)
+[![Database](https://img.shields.io/badge/Database-H2%20SQL%20Persistent-blue?style=for-the-badge&logo=hibernate)](https://www.h2database.com/)
+
+> 🌐 **Live Deployment Link**: **[https://text-to-image-gen-production.up.railway.app/](https://text-to-image-gen-production.up.railway.app/)**
+
 A complete, high-performance **Java Spring Boot 3** application for generating AI images from text prompts with customizable art styles, aspect ratios, instant image downloads, social sharing, and **persistent SQL database storage**.
 
 ---
@@ -53,13 +60,19 @@ A complete, high-performance **Java Spring Boot 3** application for generating A
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🌐 Live Online Demo (No Setup Required)
+Directly use the live deployed application in your browser:
+👉 **[https://text-to-image-gen-production.up.railway.app/](https://text-to-image-gen-production.up.railway.app/)**
+
+---
+
+### Prerequisites (For Running Locally)
 - **Java JDK 21+** (or Java 24) installed (`java -version`)
 - **Apache Maven 3.8+** installed (`mvn -version`)
 
 ---
 
-### Option 1: Run the Web Application (Recommended)
+### Option 1: Run the Web Application Locally (Recommended)
 
 1. Open your terminal in this project directory:
    ```bash
